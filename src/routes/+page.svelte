@@ -1,2 +1,7 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts"></script>
+
+<main class="h-screen w-screen bg-black">
+	<a class="font-semibold text-white" href="/about_chanel">CHANEL</a>
+</main>
+
+<style></style>
