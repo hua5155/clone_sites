@@ -48,6 +48,14 @@
 		</span>
 	</div>
 	<Slide />
+	<div class="h-[1323px] w-full bg-white text-black">
+		<h2 class="py-[72px] text-center text-[40px] font-[600] leading-[45px]">
+			藝術家眼中的 COCO 香奈兒
+		</h2>
+	</div>
+	<div class="h-[1353px] w-full bg-zinc-800 text-white">
+		<h2 class="py-[72px] text-center text-[40px] font-[600] leading-[45px]">當 COCO 邂逅香奈兒</h2>
+	</div>
 </main>
 
 <style></style>
