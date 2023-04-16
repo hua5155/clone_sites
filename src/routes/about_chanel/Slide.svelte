@@ -39,9 +39,7 @@
 	const maxPage = 9;
 	let direction = 'Right';
 	$: imageAnimation = direction === 'Right' ? 'animate-moveLeft' : 'animate-moveRight';
-	$: sliderAnimation = direction === 'Right' ? 'animate-slideLeft' : 'animate-slideRight';
 	let animationStart = false;
-	let animationEnd = false;
 	// $: if (animationStart === true) {
 	// 	console.log('animation start'); // debug
 	// } else {
