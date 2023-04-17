@@ -1,24 +1,17 @@
 <script lang="ts">
-	import Heading from './Heading.svelte';
-	import Quote from './Quote.svelte';
+	import FrontSlide from './FrontSlide.svelte';
+	import BackSlide from './BackSlide.svelte';
 
-	export let direction = '';
-	export let animationStart = false;
+	export let position = '';
 </script>
 
-<Heading
-	styling="absolute left-[400px] top-[200px] z-30 text-[80px] font-[600]"
-	bind:animationStart
-	bind:direction
+<svelte:component
+	this={position.toLowerCase() === 'front' ? FrontSlide : BackSlide}
+	imgSrc="/Chanel/Slide/patron.webp"
+	headingPos="absolute left-[400px] top-[200px]"
 >
-	<h3>襄助藝術</h3>
-</Heading>
-<Quote
-	styling="ml-8 mt-[350px] w-[544px] text-[14px] font-[300] leading-[23px]"
-	bind:animationStart
-	bind:direction
->
-	<blockquote>
+	<h3 class="text-[80px] font-[600]" slot="heading">襄助藝術</h3>
+	<blockquote class="ml-8 mt-[350px] w-[544px] text-[14px] font-[300] leading-[23px]" slot="quote">
 		<p>
 			{`「我從藝術家身上學到了嚴謹。」*嘉柏麗‧香奈兒既是藝術贊助人、靈感繆思，有時還是真正的藝術家，也為戲劇、芭蕾舞劇和電影設計服裝，她還熱愛閱讀，對巴洛克和拜占庭藝術以及斯拉夫文化充滿熱情，與眾多藝術家結下深厚友誼。她的閨蜜米西亞‧賽特（Misia Sert）引領她探索充滿蓬勃活力的藝術世界。她們一起與達基列夫（Diaghilev）、考克多（Cocteau）、史特拉汶斯基（Stravinsky）以及達利（Dali）為伴…… 嘉柏麗‧香奈兒為達基列夫的俄國芭蕾舞團提供資助，還為他的芭蕾舞劇《藍色列車》（Le Train bleu / The Blue Train）設計服裝。而考克多將香奈兒女士視為「當代最偉大的女性時裝設計師」，**香奈兒女士則為考克多的作品《安蒂岡妮》（Antigone）、《奧菲斯》（Orphée）和《俄狄浦斯王》（Œdipe Roi）設計服裝。香奈兒女士在自己的Bel Respiro 別墅款待史特拉汶斯基，並支持他的音樂創作。`}
 			<br />
@@ -34,7 +27,7 @@
 			{`Jean MORAL，1938年 © Brigitte Moral SAIF Paris`}
 		</p>
 	</blockquote>
-</Quote>
+</svelte:component>
 
 <style>
 </style>

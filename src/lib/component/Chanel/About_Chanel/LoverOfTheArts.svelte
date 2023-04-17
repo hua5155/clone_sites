@@ -1,24 +1,17 @@
 <script lang="ts">
-	import Heading from './Heading.svelte';
-	import Quote from './Quote.svelte';
+	import FrontSlide from './FrontSlide.svelte';
+	import BackSlide from './BackSlide.svelte';
 
-	export let direction = '';
-	export let animationStart = false;
+	export let position = '';
 </script>
 
-<Heading
-	styling="absolute left-[400px] top-[240px] z-30 text-[80px] font-[600]"
-	bind:animationStart
-	bind:direction
+<svelte:component
+	this={position.toLowerCase() === 'front' ? FrontSlide : BackSlide}
+	imgSrc="/Chanel/Slide/lover_of_the_arts.webp"
+	headingPos="absolute left-[400px] top-[200px]"
 >
-	<h3>熱愛藝術</h3>
-</Heading>
-<Quote
-	styling="ml-8 mt-[510px] w-[544px] text-[14px] font-[300] leading-[23px]"
-	bind:animationStart
-	bind:direction
->
-	<blockquote>
+	<h3 class="text-[80px] font-[600]" slot="heading">熱愛藝術</h3>
+	<blockquote class="ml-8 mt-[510px] w-[544px] text-[14px] font-[300] leading-[23px]" slot="quote">
 		<p>
 			{`學習、探索藝術，從藝術汲取靈感，培養自己的巧思創意，這是嘉柏麗‧香奈兒一生奉行的信念。嘉柏麗‧香奈兒對繪畫、雕塑、建築和歷史深感興趣，在與狄米崔大公爵墮入愛河之後，鐘情於斯拉夫文化所散發的迷人魅力。自此，俄式上衣、大衣、彩色凸圓形寶石和拜占庭十字架如繁花綻放，點綴她的系列作品。`}
 			<br />
@@ -32,7 +25,7 @@
 			{`© Boris Lipnitzki / Roger-Viollet`}
 		</p>
 	</blockquote>
-</Quote>
+</svelte:component>
 
 <style>
 </style>

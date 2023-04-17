@@ -1,24 +1,17 @@
 <script lang="ts">
-	import Heading from './Heading.svelte';
-	import Quote from './Quote.svelte';
+	import FrontSlide from './FrontSlide.svelte';
+	import BackSlide from './BackSlide.svelte';
 
-	export let direction = '';
-	export let animationStart = false;
+	export let position = '';
 </script>
 
-<Heading
-	styling="absolute left-[400px] top-[200px] z-30 text-[80px] font-[600]"
-	bind:animationStart
-	bind:direction
+<svelte:component
+	this={position.toLowerCase() === 'front' ? FrontSlide : BackSlide}
+	imgSrc="/Chanel/Slide/avant_garde.webp"
+	headingPos="absolute left-[400px] top-[200px]"
 >
-	<h3>前衛時尚</h3>
-</Heading>
-<Quote
-	styling="ml-8 mt-[450px] w-[544px] text-[14px] font-[300] leading-[23px]"
-	bind:animationStart
-	bind:direction
->
-	<blockquote>
+	<h3 class="text-[80px] font-[600]" slot="heading">前衛時尚</h3>
+	<blockquote class="ml-8 mt-[450px] w-[544px] text-[14px] font-[300] leading-[23px]" slot="quote">
 		<p>
 			{`打破陳規和性別界限，開創未來經典時尚，彰顯剛柔並濟的魅力，嘉柏麗‧香奈兒勇於嘗試一切：將男裝常見的斜紋軟呢布料運用於女裝設計，讓原本看似廉價的針織布料備受青睞，設計出沙灘裝和寬鬆連身洋裝。`}
 			<br />
@@ -34,7 +27,7 @@
 			{`© 攝影：Roger Schall - Schall Collection`}
 		</p>
 	</blockquote>
-</Quote>
+</svelte:component>
 
 <style>
 </style>

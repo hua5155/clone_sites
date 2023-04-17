@@ -1,38 +1,36 @@
 <script lang="ts">
-	import Slide1 from '$lib/component/Chanel/Slide1.svelte';
-
 	import { writable } from 'svelte/store';
 
 	const slides = [
 		{
-			image: '/Chanel/Slide/1930_chanel_and_gigot.webp'
+			image: '/Chanel/Slide/liberated.webp'
 		},
 		{
-			image: '/Chanel/Slide/1937_chanel_working.webp'
+			image: '/Chanel/Slide/instinctive.webp'
 		},
 		{
-			image: '/Chanel/Slide/1938_Roquebrune.webp'
+			image: '/Chanel/Slide/visionary.webp'
 		},
 		{
-			image: '/Chanel/Slide/1938_photo_in_la_pausad.webp'
+			image: '/Chanel/Slide/free.webp'
 		},
 		{
-			image: '/Chanel/Slide/1937_with_Serhіy_Mуkhailovуch_Lуfar.webp'
+			image: '/Chanel/Slide/patron.webp'
 		},
 		{
-			image: '/Chanel/Slide/1937_photo_in_31_Rue_Cambon.webp'
+			image: '/Chanel/Slide/reader.webp'
 		},
 		{
-			image: '/Chanel/Slide/1960_with_Jeanne_Moreau.webp'
+			image: '/Chanel/Slide/pygmalion.webp'
 		},
 		{
-			image: '/Chanel/Slide/1937_photo_at_31_Rue_Cambon.webp'
+			image: '/Chanel/Slide/lover_of_the_arts.webp'
 		},
 		{
-			image: '/Chanel/Slide/1938_photo_at_la_pausad.webp'
+			image: '/Chanel/Slide/avant_garde.webp'
 		},
 		{
-			image: '/Chanel/Slide/chanel_left_hand_print.webp'
+			image: '/Chanel/Slide/luck.webp'
 		}
 	];
 	let page = 0;

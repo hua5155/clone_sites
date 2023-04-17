@@ -1,24 +1,17 @@
 <script lang="ts">
-	import Heading from './Heading.svelte';
-	import Quote from './Quote.svelte';
+	import FrontSlide from './FrontSlide.svelte';
+	import BackSlide from './BackSlide.svelte';
 
-	export let direction = '';
-	export let animationStart = false;
+	export let position = '';
 </script>
 
-<Heading
-	styling="absolute left-[400px] top-[200px] z-30 text-[80px] font-[600]"
-	bind:animationStart
-	bind:direction
+<svelte:component
+	this={position.toLowerCase() === 'front' ? FrontSlide : BackSlide}
+	imgSrc="/Chanel/Slide/luck.webp"
+	headingPos="absolute left-[400px] top-[200px]"
 >
-	<h3>幸運機遇</h3>
-</Heading>
-<Quote
-	styling="ml-8 mt-[350px] w-[544px] text-[14px] font-[300] leading-[23px]"
-	bind:animationStart
-	bind:direction
->
-	<blockquote>
+	<h3 class="text-[80px] font-[600]" slot="heading">幸運機遇</h3>
+	<blockquote class="ml-8 mt-[350px] w-[544px] text-[14px] font-[300] leading-[23px]" slot="quote">
 		<p>
 			{`在創作她的第一款香水作品 N°5 時，嘉柏麗‧香奈兒從不同的調香樣本中挑選了第 5 號樣本。在被問到「你要如何命名這款香水？」時，她回答：「我於一年中的第 5 個月 - 5 月 5 日推出由 5 款洋裝所組成的系列，我們就將編號 N°5 作為它的名稱吧，因為數字 5 會帶來好運。」*  機遇，也是尚‧考克多（Jean Cocteau）有一天在寫給她的便條上所探討的主題……她將麥穗視為機遇與幸運的象徵，在她位於康朋街的寓所中，金銀器工匠羅伯‧古森（Robert Goossens）為她製作的茶几底座上澆鑄了黃銅麥穗裝飾，畫家薩爾瓦多‧達利（Salvador Dali）也曾為她創作以麥穗為主題的畫作。`}
 			<br />
@@ -34,7 +27,7 @@
 			{`© CHANEL`}
 		</p>
 	</blockquote>
-</Quote>
+</svelte:component>
 
 <style>
 </style>
