@@ -1,24 +1,17 @@
 <script lang="ts">
-	import Heading from './Heading.svelte';
-	import Quote from './Quote.svelte';
+	import FrontSlide from './FrontSlide.svelte';
+	import BackSlide from './BackSlide.svelte';
 
-	export let direction = '';
-	export let animationStart = false;
+	export let position = '';
 </script>
 
-<Heading
-	styling="absolute left-[400px] top-[200px] z-30 text-[80px] font-[600]"
-	bind:animationStart
-	bind:direction
+<svelte:component
+	this={position.toLowerCase() === 'front' ? FrontSlide : BackSlide}
+	imgSrc="/Chanel/Slide/reader.webp"
+	headingPos="absolute left-[400px] top-[200px]"
 >
-	<h3>高瞻遠矚</h3>
-</Heading>
-<Quote
-	styling="ml-8 mt-[350px] w-[544px] text-[14px] font-[300] leading-[23px]"
-	bind:animationStart
-	bind:direction
->
-	<blockquote>
+	<h3 class="text-[80px] font-[600]" slot="heading">高瞻遠矚</h3>
+	<blockquote class="ml-8 mt-[350px] w-[544px] text-[14px] font-[300] leading-[23px]" slot="quote">
 		<p>
 			{`針織服裝、水手衫、斜紋軟呢套裝和外套、兩件式針織衫、小黑洋裝、雙色鞋、皮革鍊帶菱格紋肩背包款、珍珠項鍊……嘉柏麗‧香奈兒創造出全新魅力姿態，打造當代女性穿著的永恆典範風格語彙。`}
 			<br />
@@ -38,7 +31,7 @@
 			{`© 攝影：Roger Schall - Schall Collection`}
 		</p>
 	</blockquote>
-</Quote>
+</svelte:component>
 
 <style>
 </style>

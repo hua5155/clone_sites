@@ -1,18 +1,15 @@
 <script lang="ts">
-	export let styling = '';
-	export let direction = '';
-	export let position = '';
-	export let animationStart = false;
+	import { direction, animationStart } from './Slide.svelte';
 
-	$: startPosition = position.toLowerCase() === 'rear' ? 'opacity-0' : '';
+	export let styling = '';
 </script>
 
 <!-- Animated by this div -->
 <!-- pass in the styling as prop?? -->
 <div
 	class="h-fit w-fit {styling}"
-	class:animate-moveOutLeft={direction.toLowerCase() === 'right' && animationStart}
-	class:animate-moveOutRight={direction.toLowerCase() === 'left' && animationStart}
+	class:animate-moveOutLeft={$direction.toLowerCase() === 'right' && $animationStart}
+	class:animate-moveOutRight={$direction.toLowerCase() === 'left' && $animationStart}
 >
 	<slot>
 		<!-- Heading goes here -->

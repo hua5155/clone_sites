@@ -1,19 +1,29 @@
 <script lang="ts">
+	import { direction, animationStart } from './Slide.svelte';
+
 	export let imgSrc = '';
 	export let imgAlt = '';
-	export let direction = '';
-	export let animationStart = false;
+	export let headingPos = '';
 
 	let imgHeight = 0;
 </script>
 
 <!-- Whole slide container -->
 <div class="relative flex w-full flex-row">
-	<div class="w-[541px]" style:height="{imgHeight}px" />
+	<div class="w-[541px]" style:height="{imgHeight}px">
+		<div
+			class="z-30 h-fit w-fit opacity-0 {headingPos}"
+			class:animate-moveInRight={$direction.toLowerCase() === 'right' && $animationStart}
+			class:animate-moveInLeft={$direction.toLowerCase() === 'left' && $animationStart}
+			style:--duration="1000ms"
+		>
+			<slot name="heading" />
+		</div>
+	</div>
 	<div
 		class="absolute z-10 w-[541px] overflow-hidden"
-		class:animate-appearRight={direction.toLowerCase() === 'right' && animationStart}
-		class:animate-appearLeft={direction.toLowerCase() === 'left' && animationStart}
+		class:animate-appearRight={$direction.toLowerCase() === 'right' && $animationStart}
+		class:animate-appearLeft={$direction.toLowerCase() === 'left' && $animationStart}
 		style:height="{imgHeight}px"
 		style:width="0px"
 		on:animationend={() => {
@@ -21,29 +31,29 @@
 		}}
 	>
 		<div
-			class="absolute h-fit w-fit {direction === 'right' ? 'right-0' : ''}"
+			class="absolute h-fit w-fit {$direction === 'right' ? 'right-0' : ''}"
 			bind:clientHeight={imgHeight}
 		>
 			<img
 				class="w-[541px] max-w-[541px]"
-				class:animate-zoomOut={animationStart}
+				class:animate-zoomOut={$animationStart}
 				src={imgSrc}
 				alt={imgAlt}
 			/>
 		</div>
 	</div>
 
-	<!-- <slot name="heading" /> -->
-	<!-- <slot name="quote" /> -->
 	<div
-		class="opacity-0"
-		class:animate-moveInRight={direction.toLowerCase() === 'right' && animationStart}
-		class:animate-moveInLeft={direction.toLowerCase() === 'left' && animationStart}
+		class="relative z-30 opacity-0"
+		class:animate-moveInRight={$direction.toLowerCase() === 'right' && $animationStart}
+		class:animate-moveInLeft={$direction.toLowerCase() === 'left' && $animationStart}
+		style:--duration="1500ms"
 	>
-		<slot>
-			<!-- Slide goes here -->
-		</slot>
+		<slot name="quote" />
 	</div>
+	<!-- <slot> -->
+	<!-- Slide goes here -->
+	<!-- </slot> -->
 </div>
 
 <style>
@@ -60,7 +70,7 @@
 	}
 
 	.animate-appearLeft {
-		animation: appearLeft 2000ms ease 200ms normal forwards;
+		animation: appearLeft 1000ms ease 200ms normal forwards;
 	}
 	@keyframes appearLeft {
 		0% {
@@ -72,7 +82,7 @@
 	}
 
 	.animate-appearRight {
-		animation: appearRight 2000ms ease 200ms normal forwards;
+		animation: appearRight 1000ms ease 200ms normal forwards;
 	}
 	@keyframes appearRight {
 		0% {
@@ -86,7 +96,7 @@
 	}
 
 	.animate-moveInLeft {
-		animation: moveInLeft 2000ms ease normal forwards;
+		animation: moveInLeft var(--duration) ease 200ms normal forwards;
 	}
 	@keyframes moveInLeft {
 		0% {
@@ -102,7 +112,7 @@
 	}
 
 	.animate-moveInRight {
-		animation: moveInRight 2000ms ease normal forwards;
+		animation: moveInRight var(--duration) ease 200ms normal forwards;
 	}
 	@keyframes moveInRight {
 		0% {

@@ -1,24 +1,17 @@
 <script lang="ts">
-	import Heading from './Heading.svelte';
-	import Quote from './Quote.svelte';
+	import FrontSlide from './FrontSlide.svelte';
+	import BackSlide from './BackSlide.svelte';
 
-	export let direction = '';
-	export let animationStart = false;
+	export let position = '';
 </script>
 
-<Heading
-	styling="absolute left-[400px] top-[200px] z-30 text-[80px] font-[600]"
-	bind:animationStart
-	bind:direction
+<svelte:component
+	this={position.toLowerCase() === 'front' ? FrontSlide : BackSlide}
+	imgSrc="/Chanel/Slide/reader.webp"
+	headingPos="absolute left-[400px] top-[200px]"
 >
-	<h3>熱愛閱讀</h3>
-</Heading>
-<Quote
-	styling="ml-8 mt-[350px] w-[544px] text-[14px] font-[300] leading-[23px]"
-	bind:animationStart
-	bind:direction
->
-	<blockquote>
+	<h3 class="text-[80px] font-[600]" slot="heading">熱愛閱讀</h3>
+	<blockquote class="ml-8 mt-[350px] w-[544px] text-[14px] font-[300] leading-[23px]" slot="quote">
 		<p>
 			{`「書籍一直是我最好的朋友。」* 嘉柏麗‧香奈兒有一天向保羅‧莫朗說。從在奧巴辛（Aubazine）修道院閱讀聖詩開始，書籍與嘉柏麗‧香奈兒相伴一生。在她位於康朋街的寓所中，各種書籍沉重地堆疊於牆面架上。其中一本打開著，旁邊還擺放著一副眼鏡……躺在米色麂皮沙發上，靠著菱格紋抱枕，嘉柏麗‧香奈兒飽覽群書。`}
 			<br />
@@ -32,7 +25,7 @@
 			{`攝影：Jean Moral ©  Brigitte Moral`}
 		</p>
 	</blockquote>
-</Quote>
+</svelte:component>
 
 <style>
 </style>
