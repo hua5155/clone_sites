@@ -30,7 +30,7 @@
 		}}
 	>
 		<div
-			class="absolute h-fit w-fit {$direction === 'left' ? 'right-0' : ''}"
+			class="absolute h-fit w-fit {$direction.toLowerCase() === 'left' ? 'right-0' : ''}"
 			bind:clientHeight={imgHeight}
 		>
 			<img
