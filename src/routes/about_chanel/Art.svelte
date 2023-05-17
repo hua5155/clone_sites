@@ -19,7 +19,7 @@
 
 	const leftCheck = (index: number, page: number) => {
 		if (page === 0) {
-			return index === 10 ? true : false;
+			return index === maxPage ? true : false;
 		}
 		return index === page - 1 ? true : false;
 	};
