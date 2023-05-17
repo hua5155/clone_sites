@@ -1,38 +1,10 @@
-# create-svelte
+# Clone sites
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Practicing SvelteKit, TailwindCSS, Keyframe animation, etc.
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## sites
+* Chanel's about chanel ([ENG](https://www.chanel.com/us/about-chanel/the-founder/), [TW](https://www.chanel.com/tw/about-chanel/the-founder/)) - mostly complete
+* Botanist ([link](https://botanistofficial.com/special/limited/spring/)) - in progress
+* ちょうどいいWebデザインギャラリー ([link](https://choooodoii.com/)) - in progress
+* 「重要文化財の秘密」 問題作が傑作になるまで 公式ウェブサイト ([link](https://jubun2023.jp/)) - in progress
+* Social Coffee House ([link](https://socialcoffeehouse.arca.tokyo/)) - in progress
