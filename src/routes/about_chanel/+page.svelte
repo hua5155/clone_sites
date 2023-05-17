@@ -3,6 +3,7 @@
 	import Signature from './Signature.svelte';
 	import Slide from './Slide.svelte';
 	import Art from './Art.svelte';
+	import Video from './Video.svelte';
 </script>
 
 <main class=" h-screen w-screen">
@@ -49,9 +50,7 @@
 	</div>
 	<Slide />
 	<Art />
-	<div class="h-[1353px] w-full bg-zinc-800 text-white">
-		<h2 class="py-[72px] text-center text-[40px] font-[600] leading-[45px]">當 COCO 邂逅香奈兒</h2>
-	</div>
+	<Video />
 </main>
 
 <style></style>
