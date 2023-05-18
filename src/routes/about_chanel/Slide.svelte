@@ -1,36 +1,38 @@
 <script lang="ts">
+	import Slide1 from '$lib/component/Chanel/Slide1.svelte';
+
 	import { writable } from 'svelte/store';
 
 	const slides = [
 		{
-			image: '/Chanel/1930_chanel_and_gigot.webp'
+			image: '/Chanel/Slide/1930_chanel_and_gigot.webp'
 		},
 		{
-			image: '/Chanel/1937_chanel_working.webp'
+			image: '/Chanel/Slide/1937_chanel_working.webp'
 		},
 		{
-			image: '/Chanel/1938_Roquebrune.webp'
+			image: '/Chanel/Slide/1938_Roquebrune.webp'
 		},
 		{
-			image: '/Chanel/1938_photo_in_la_pausad.webp'
+			image: '/Chanel/Slide/1938_photo_in_la_pausad.webp'
 		},
 		{
-			image: '/Chanel/1937_with_Serhіy_Mуkhailovуch_Lуfar.webp'
+			image: '/Chanel/Slide/1937_with_Serhіy_Mуkhailovуch_Lуfar.webp'
 		},
 		{
-			image: '/Chanel/1937_photo_in_31_Rue_Cambon.webp'
+			image: '/Chanel/Slide/1937_photo_in_31_Rue_Cambon.webp'
 		},
 		{
-			image: '/Chanel/1960_with_Jeanne_Moreau.webp'
+			image: '/Chanel/Slide/1960_with_Jeanne_Moreau.webp'
 		},
 		{
-			image: '/Chanel/1937_photo_at_31_Rue_Cambon.webp'
+			image: '/Chanel/Slide/1937_photo_at_31_Rue_Cambon.webp'
 		},
 		{
-			image: '/Chanel/1938_photo_at_la_pausad.webp'
+			image: '/Chanel/Slide/1938_photo_at_la_pausad.webp'
 		},
 		{
-			image: '/Chanel/chanel_left_hand_print.webp'
+			image: '/Chanel/Slide/chanel_left_hand_print.webp'
 		}
 	];
 	let page = 0;
@@ -45,8 +47,14 @@
 	// } else {
 	// 	console.log('animation end'); // debug
 	// }
-	const curImage = writable(slides[0].image);
-	const nextImage = writable(slides[1].image);
+	const frontImage = writable({
+		src: slides[0].image,
+		height: 0
+	});
+	const backImage = writable({
+		src: slides[1].image,
+		height: 0
+	});
 
 	const handlePage = () => {
 		if (animationStart === true) {
@@ -71,7 +79,7 @@
 		}
 
 		// $curImage = $nextImage;
-		$nextImage = slides[page].image;
+		$backImage.src = slides[page].image;
 		// console.log(`nextImage : ${$nextImage}`); // debug
 		setTimeout(() => {
 			animationStart = true;
@@ -96,47 +104,46 @@
 			</button>
 		</div>
 
+		<!-- <div class="relative w-full h-fit">
+			<Slide1 />
+			<div class="absolute left-0 top-0">
+				<Slide1 />
+			</div>
+		</div> -->
 		<div class="relative flex w-full flex-row">
 			<div class="relative h-full w-[541px]">
 				<!-- picture 1 -->
 				<div
 					class="absolute left-0 top-0 z-10 overflow-hidden
             {animationStart ? imageAnimation : ''}"
-					style="width: 541px;"
+					style="width: 541px; height: {$frontImage.height}px;"
 					on:animationstart={() => {
-						console.log(`curImage : ${$curImage}\nnextImage : ${$nextImage}`);
+						console.log(`curImage : ${$frontImage.src}\nnextImage : ${$backImage.src}`);
 					}}
 					on:animationend={() => {
-						$curImage = $nextImage;
+						$frontImage = $backImage;
 						animationStart = false;
 						// animationEnd = true;
 					}}
 				>
-					<img
-						class="{animationStart ? 'animate-zoomIn' : ''} 
-              {direction === 'Left' ? 'absolute right-0 top-0' : ''}"
-						src={$curImage}
-						alt=""
-						style="width: 541px; max-width: 541px;"
-					/>
-					<!-- <div
-						class="absolute left-0 top-0 z-10 h-full w-[100px] bg-red-800
-              {animationStart ? sliderAnimation : 'hidden'}"
-						style=""
-					/> -->
+					<div
+						class="absolute h-fit w-fit
+              {direction === 'Left' ? ' right-0 top-0' : ''}"
+						bind:clientHeight={$frontImage.height}
+					>
+						<img
+							class="w-[541px] max-w-[541px] {animationStart ? 'animate-zoomIn' : ''}"
+							src={$frontImage.src}
+							alt=""
+						/>
+					</div>
 				</div>
 				<!-- picture 2 -->
 				<div class="relative z-0 overflow-hidden" style="width: 541px;">
 					<img
-						class="{animationStart ? 'animate-zoomOut' : ''} "
-						src={$nextImage}
+						class="w-[541px] max-w-[541px] {animationStart ? 'animate-zoomOut' : ''}"
+						src={$backImage.src}
 						alt=""
-						style="width: 541px; max-width: 541px;"
-					/>
-					<div
-						class="absolute left-0 top-0 z-10 h-full w-[541px] bg-blue-800
-              {animationStart ? imageAnimation : ''}"
-						style=""
 					/>
 				</div>
 			</div>
@@ -187,7 +194,6 @@
 	.animate-zoomIn {
 		animation: zoomIn 2000ms ease;
 	}
-
 	@keyframes zoomIn {
 		0% {
 		}
@@ -199,7 +205,6 @@
 	.animate-zoomOut {
 		animation: zoomOut 2000ms ease;
 	}
-
 	@keyframes zoomOut {
 		0% {
 			transform: scale(1.5);
@@ -212,7 +217,6 @@
 	.animate-moveLeft {
 		animation: moveLeft 2000ms ease;
 	}
-
 	@keyframes moveLeft {
 		0% {
 		}
@@ -224,7 +228,6 @@
 	.animate-moveRight {
 		animation: moveRight 2000ms ease;
 	}
-
 	@keyframes moveRight {
 		0% {
 			/* width: 0px; */
@@ -240,7 +243,6 @@
 	.animate-slideLeft {
 		animation: sildeLeft 2000ms ease;
 	}
-
 	@keyframes sildeLeft {
 		0% {
 			transform: translateX(541px);
@@ -253,7 +255,6 @@
 	.animate-slideRight {
 		animation: sildeRight 2000ms ease;
 	}
-
 	@keyframes sildeRight {
 		0% {
 			transform: translateX(-100%);
