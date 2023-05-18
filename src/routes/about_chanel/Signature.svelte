@@ -114,7 +114,7 @@
 			/>
 		</svg>
 	</div>
-	<img class="h-[610px]" src="/Chanel/chanel.webp" alt="" />
+	<img class="h-[610px]" src="/Chanel/Signature/chanel.webp" alt="" />
 </div>
 
 <svelte:window

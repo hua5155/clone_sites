@@ -1,31 +1,32 @@
 <script lang="ts">
-	let direction = 'Right';
+	export let direction = '';
+	export let zPosition = '';
+	export let animationStart = false;
 	$: imageAnimation = direction === 'Right' ? 'animate-moveLeft' : 'animate-moveRight';
-	$: sliderAnimation = direction === 'Right' ? 'animate-slideLeft' : 'animate-slideRight';
-	let animationStart = false;
+
+	let imgHeight = 0;
 </script>
 
+<!-- Whole slide container -->
 <div class="relative flex w-full flex-row">
-	<div class="relative h-fit w-[541px]">
+	<!-- <div class="relative h-fit w-[541px]">
+	</div> -->
+	<div
+		class="z-10 w-[541px] overflow-hidden
+			{animationStart ? imageAnimation : ''}"
+		style="height: {imgHeight}px;"
+		on:animationend={() => {
+			animationStart = false;
+		}}
+	>
 		<div
-			class="absolute left-0 top-0 z-10 overflow-hidden
-        {animationStart ? imageAnimation : ''}"
-			style="width: 541px;"
-			on:animationend={() => {
-				animationStart = false;
-				// animationEnd = true;
-			}}
+			class="absolute h-fit w-fit {direction === 'left' ? 'right-0' : ''}"
+			bind:clientHeight={imgHeight}
 		>
 			<img
-				class={animationStart ? 'animate-zoomIn' : ''}
-				src="/Chanel/1930_chanel_and_gigot.webp"
+				class="w-[541px] max-w-[541px] {animationStart ? 'animate-zoomIn' : ''}"
+				src="/Chanel/Slide/1930_chanel_and_gigot.webp"
 				alt=""
-				style="width: 541px; max-width: 541px;"
-			/>
-			<div
-				class="absolute left-0 top-0 z-10 h-full w-[541px] bg-zinc-800
-          {animationStart ? sliderAnimation : 'hidden'}"
-				style=""
 			/>
 		</div>
 	</div>
