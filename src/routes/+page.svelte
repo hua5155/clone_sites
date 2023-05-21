@@ -7,6 +7,10 @@
 		{
 			href: '/social_coffee_house',
 			text: 'Social Coffee House'
+		},
+		{
+			href: '/botanist',
+			text: 'BOTANIST'
 		}
 	];
 </script>
