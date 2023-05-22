@@ -13,9 +13,14 @@
 </script>
 
 {#if nestedFlag}
-	<ul class="my-2 text-[11px] leading-[23px]">
+	<ul class="my-2 hidden text-[11px] md:block">
 		{#each urlArray as url}
-			<li>{url}</li>
+			<li>{`${url} -`}</li>
+		{/each}
+	</ul>
+	<ul class="my-6 text-[14px] leading-[21px] md:hidden">
+		{#each urlArray as url}
+			<li>{`- ${url}`}</li>
 		{/each}
 	</ul>
 {:else}
