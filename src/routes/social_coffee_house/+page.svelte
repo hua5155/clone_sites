@@ -217,9 +217,9 @@
 		}
 	}
 
-	.slide {
+	/* .slide {
 		transform: translateX();
-	}
+	} */
 	.draggable {
 		transform: translateX(var(--position));
 	}
