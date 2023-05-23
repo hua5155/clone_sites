@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Bloom from './Bloom.svelte';
 	import NavElement from './NavElement.svelte';
 
 	const nav = ['FEATURE', ['SHAMPOO&TREATMENT', 'OUR BATH', 'BODY SOAP'], 'PRODUCTS'];
@@ -19,9 +20,14 @@
 			<div
 				class="animate-rotateUp relative h-full w-full bg-[url('botanist/img/kv_sp.jpg')] bg-cover bg-center [--opacity-end:1] [--rotate-end:0deg] [--rotate-start:30deg] [animation-delay:300ms] [transform-origin:left] md:bg-[url('botanist/img/kv.jpg')]"
 			/>
+			<div
+				class="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-between px-[max(28px,_7.46667%)] py-[max(40px,_10.66667%)] md:items-start md:p-[60px]"
+			>
+				<img class="w-[70px] md:w-fit" src="botanist/svg/logo-w.svg" alt="" />
+				<Bloom />
+			</div>
 		</div>
 	</div>
-	<!-- <img src="botanist/svg/logo-bk.svg" alt="" /> -->
 
 	<!-- Desktop nav bar -->
 	<nav
