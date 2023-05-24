@@ -11,6 +11,10 @@
 		{
 			href: '/botanist',
 			text: 'BOTANIST'
+		},
+		{
+			href: '/pulsar_x2_mini',
+			text: 'Pulsar X2 mini'
 		}
 	];
 </script>
