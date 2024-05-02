@@ -13,18 +13,25 @@
 </script>
 
 {#if nestedFlag}
-	<ul class="my-2 hidden text-[11px] md:block">
+	<!-- Desktop -->
+	<div class="hidden w-full pt-2 md:block"></div>
+	<ul class="hidden flex-col items-end text-[11px] md:flex">
 		{#each urlArray as url}
-			<li>{`${url} -`}</li>
+			<li class="w-fit cursor-pointer">{`${url} -`}</li>
 		{/each}
 	</ul>
-	<ul class="my-6 text-[14px] leading-[21px] md:hidden">
+	<div class="hidden w-full pb-2 md:block"></div>
+
+	<!-- Mobile -->
+	<div class="pt-6 md:hidden"></div>
+	<ul class="flex flex-col items-start text-[14px] leading-[21px] md:hidden">
 		{#each urlArray as url}
-			<li>{`- ${url}`}</li>
+			<li class="w-fit cursor-pointer">{`- ${url}`}</li>
 		{/each}
 	</ul>
+	<div class="pb-6 md:hidden"></div>
 {:else}
-	<li>{url}</li>
+	<li class="w-fit cursor-pointer">{url}</li>
 {/if}
 
 <style>
