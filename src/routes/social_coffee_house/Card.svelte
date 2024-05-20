@@ -2,6 +2,7 @@
 	export let id: number;
 	export let date: string;
 	export let heading: string;
+	export let name: string;
 </script>
 
 <div class="w-[500px] border-2 border-[#003e59] bg-white p-3 drop-shadow-[-3px_3px_0px_#003e59]">
@@ -26,7 +27,14 @@
 	<div class="pt-5"></div>
 	<h3 class="w-fit bg-[#003e59] px-2 text-white">GUEST</h3>
 	<div class="border-b-2 border-t-2 border-[#003e59] px-5 py-8">
-		<slot />
+		<div class="flex flex-row space-x-2">
+			<div class="h-[110px] w-[110px] border-2 border-[#003e59] bg-pink-400" />
+			<p
+				class="h-fit w-fit bg-[#ffde05] text-[20px] font-[400] capitalize leading-[1.6rem] text-[#003e59]"
+			>
+				{name}
+			</p>
+		</div>
 	</div>
 
 	<div class="flex justify-end text-[20px] font-[400] leading-[1.6rem] text-[#003e59]">

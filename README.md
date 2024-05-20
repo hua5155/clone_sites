@@ -1,11 +1,21 @@
 # Clone sites
 
-Practicing SvelteKit, TailwindCSS, Keyframe animation, etc.
+Practicing SvelteKit, TailwindCSS, Keyframe animation, etc by cloning some pretty websites.
 
-## sites
-* Chanel's about chanel ([ENG](https://www.chanel.com/us/about-chanel/the-founder/), [TW](https://www.chanel.com/tw/about-chanel/the-founder/)) - mostly complete
-* Botanist ([link](https://botanistofficial.com/special/limited/spring/)) - in progress
-* ちょうどいいWebデザインギャラリー ([link](https://choooodoii.com/)) - planed
-* 「重要文化財の秘密」 問題作が傑作になるまで 公式ウェブサイト ([link](https://jubun2023.jp/)) - planed
-* Social Coffee House ([link](https://socialcoffeehouse.arca.tokyo/)) - in progress
-* Pulsar X2 mini product page ([link](https://www.pulsar.gg/products/x2-mini), [link](https://www.pulsar.gg/products/x2-mini-super-clear)) - planed
+## Websites
+- [x] [Chanel's about chanel (tw)] [(us)][Chanel's about chanel (us)] - mostly complete
+- [x] [Botanist] - complete
+- [ ] [ちょうどいいWebデザインギャラリー] - planed
+- [ ] [「重要文化財の秘密」 問題作が傑作になるまで 公式ウェブサイト] - planed
+- [x] [Social Coffee House] - mostly complete
+- [ ] [Pulsar X2 mini product page] - in progress
+
+<!-- ## Websites -->
+[Chanel's about chanel (us)]: https://www.chanel.com/us/about-chanel/the-founder/
+[Chanel's about chanel (tw)]: https://www.chanel.com/tw/about-chanel/the-founder/
+[Botanist]: https://botanistofficial.com/special/limited/spring/
+[ちょうどいいWebデザインギャラリー]: https://choooodoii.com/
+[「重要文化財の秘密」 問題作が傑作になるまで 公式ウェブサイト]: https://jubun2023.jp/
+[Social Coffee House]: https://socialcoffeehouse.arca.tokyo/
+[Pulsar X2 mini product page]: https://www.pulsar.gg/products/x2-mini
+[Pulsar X2 mini super clear product page]: https://www.pulsar.gg/products/x2-mini-super-clear

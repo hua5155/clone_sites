@@ -42,6 +42,8 @@
 	let animationOut = false;
 
 	let page = 0;
+
+	let test: HTMLElement;
 </script>
 
 <svelte:window
@@ -71,7 +73,7 @@
 	}}
 />
 
-<main class="absolute left-0 top-0 h-screen w-screen max-w-full overflow-x-hidden">
+<main class="h-screen min-w-full overflow-x-hidden">
 	<!-- <img class="w-full" src="social_coffee_house/fv_pc.png" alt="" /> -->
 	<!-- <div class="pt-10"></div>
 	<div class="mx-auto h-fit w-fit">
@@ -82,6 +84,7 @@
 		<p>{`dragFlag : ${dragFlag} (scroll : ${scroll})`}</p>
 	</div> -->
 
+	<!-- js implementation -->
 	<div class="pt-24"></div>
 	<div
 		class="flex h-[500px] w-screen items-center justify-center overflow-hidden border-y-2 border-[#003e59] bg-[#00a1c0]"
@@ -119,6 +122,7 @@
 				style:--position="{scroll}px"
 			>
 				{#each dummyData as card, index}
+					{@const { id, date, heading, name } = card}
 					<li>
 						<button
 							on:mousedown={(e) => {
@@ -133,16 +137,7 @@
 								animationIn = true;
 							}}
 						>
-							<Card id={card.id} date={card.date} heading={card.heading}>
-								<div class="flex flex-row space-x-1">
-									<div class="h-[110px] w-[110px] border-2 border-[#003e59] bg-pink-400" />
-									<p
-										class="h-fit w-fit bg-[#ffde05] text-[20px] font-[400] capitalize leading-[1.6rem] text-[#003e59]"
-									>
-										{card.name}
-									</p>
-								</div>
-							</Card>
+							<Card {id} {date} {heading} {name}></Card>
 						</button>
 					</li>
 				{/each}
@@ -150,7 +145,52 @@
 		</div>
 	</div>
 
+	<!-- Tailwind scroll snap -->
+	<!-- <div class="pt-10"></div>
+	<div
+		class="relative flex h-[500px] w-screen scroll-pl-5 items-center justify-center gap-24 overflow-hidden border-y-2 border-[#003e59] bg-[#00a1c0]"
+	>
+		<div class="relative flex h-full w-[--width]" style:--width="{SLIDE_WIDTH}px">
+			<button
+				class="absolute left-0 top-1/2 z-10"
+				on:click={() => {
+					test.scrollBy({ left: -SLIDE_WIDTH, behavior: 'smooth' });
+					console.log(test.scrollLeft);
+				}}
+			>
+				<img class="w-[18px]" src="social_coffee_house/arrow_left.png" alt="left arrow" />
+			</button>
+			<button
+				class="absolute right-0 top-1/2 z-10"
+				on:click={() => {
+					test.scrollBy({ left: SLIDE_WIDTH, behavior: 'smooth' });
+					console.log(test.scrollLeft);
+				}}
+			>
+				<img class="w-[18px]" src="social_coffee_house/arrow_right.png" alt="right arrow" />
+			</button>
+		</div>
+		<div
+			class="absolute left-0 flex w-full snap-x snap-mandatory flex-row gap-24 overflow-x-scroll scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+			bind:this={test}
+		>
+			<div>
+				<div class="w-[50vw]"></div>
+			</div>
+			{#each dummyData as card, index}
+				{@const { id, date, heading, name } = card}
+				<div class="snap-center">
+					<Card {id} {date} {heading} {name}></Card>
+				</div>
+			{/each}
+			<div>
+				<div class="w-[50vw]"></div>
+			</div>
+		</div>
+	</div> -->
+
 	{#if modalFlag === true}
+		{@const { id, date, heading, name } = selected}
 		<button
 			class="absolute left-0 top-0 flex h-screen w-screen items-center justify-center bg-black/50"
 			class:modal-fadeIn={animationIn === true}
@@ -176,16 +216,7 @@
 						X
 					</button>
 				</div>
-				<Card id={selected.id} date={selected.date} heading={selected.heading}>
-					<div class="flex flex-row space-x-5">
-						<div class="h-[110px] w-[110px] border-2 border-[#003e59] bg-pink-400" />
-						<p
-							class="h-fit w-fit bg-[#ffde05] text-[20px] font-[400] capitalize leading-[1.6rem] text-[#003e59]"
-						>
-							{selected.name}
-						</p>
-					</div>
-				</Card>
+				<Card {id} {date} {heading} {name}></Card>
 			</div>
 		</button>
 	{/if}
