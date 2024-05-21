@@ -28,40 +28,15 @@
 		}, 1000);
 	}
 
-	let timelineAdjusting = false;
-	let timelineLength = 320;
 	let timelinePos = 0;
-	$: percentage = currentTime / duration;
-	$: currentTime = duration * (timelinePos / timelineLength);
-	$: moveTimeline(percentage);
-	$: if (playState === true) {
-		paused = timelineAdjusting;
-	}
+	$: timelinePos = currentTime / duration;
 
-	const moveTimeline = (percentage: number) => {
-		timelinePos = timelineLength * percentage;
-	};
-
-	let volumeLength = 100;
-	let volumePos = 100;
-	$: volume = 1 * (volumePos / volumeLength);
-
-	let hoverFlag = false;
+	const VOLUME_SLIDER_WIDTH = 100 as const;
 </script>
 
-<div
-	class="relative h-fit w-fit overflow-hidden"
-	on:focus={() => {}}
-	on:mouseover={() => {
-		hoverFlag = true;
-	}}
-	on:mouseout={() => {
-		hoverFlag = false;
-	}}
-	on:blur={() => {}}
->
+<div class="group relative h-fit w-fit overflow-hidden">
 	<video
-		class="z-0 h-[720px] max-w-fit"
+		class="h-[720px] max-w-fit"
 		src={video}
 		bind:currentTime
 		bind:duration
@@ -72,9 +47,51 @@
 		<track kind="captions" />
 	</video>
 
+	<div class="absolute bottom-5 left-1/2 -translate-x-1/2">
+		<div
+			class="flex translate-y-full flex-row items-center justify-center space-x-5 rounded-lg bg-zinc-800 bg-opacity-80 px-7 py-5 opacity-0 transition-all duration-500 hover:bg-opacity-100 group-hover:translate-y-0 group-hover:opacity-100"
+		>
+			<button
+				class="h-10 rounded-lg bg-blue-500 px-5 pb-1"
+				on:click={() => {
+					paused = !paused;
+					playState = !paused;
+				}}
+			>
+				{paused ? 'paused' : 'playing'}
+			</button>
+			<input
+				class="w-[320px] bg-transparent"
+				type="range"
+				name="timeline"
+				id="timeline"
+				bind:value={timelinePos}
+				min="0"
+				max="1"
+				step="0.01"
+				on:mouseup={() => {
+					paused = false;
+				}}
+				on:input={() => {
+					paused = true;
+					currentTime = duration * timelinePos;
+				}}
+			/>
+			<button
+				class="h-10 rounded-lg bg-blue-500 px-5 pb-1"
+				on:click={() => {
+					muted = !muted;
+				}}
+			>
+				{muted ? 'muted' : 'unmuted'}
+			</button>
+			<Slider width={VOLUME_SLIDER_WIDTH} bind:value={volume} />
+		</div>
+	</div>
+
 	{#if previewFlag === true}
 		<video
-			class="absolute left-0 top-0 z-20 h-[720px] max-w-fit"
+			class="absolute left-0 top-0 h-[720px] max-w-fit"
 			src={preview}
 			bind:currentTime={preveiwCurrentTime}
 			bind:paused={previewPaused}
@@ -88,75 +105,25 @@
 			<track kind="captions" />
 		</video>
 	{/if}
-
-	<div class="absolute bottom-5 z-10 w-full">
-		<div
-			class="mx-auto flex h-fit w-fit flex-row items-center justify-center space-x-5 rounded-lg bg-zinc-800/80 px-7 py-5"
-			class:animate-slideUp={hoverFlag}
-			class:animate-slideDown={!hoverFlag}
-		>
-			<button
-				class="h-10 rounded-lg bg-blue-500 px-5 pb-1"
-				on:click={() => {
-					paused = !paused;
-					playState = !paused;
-				}}
-			>
-				{paused ? 'paused' : 'playing'}
-			</button>
-			<Slider
-				bind:sliderLength={timelineLength}
-				bind:sliderPos={timelinePos}
-				bind:adjusting={timelineAdjusting}
-				primaryColor="bg-zinc-600"
-				secondaryColor="bg-zinc-400"
-				knobColor="bg-white"
-			/>
-			<button
-				class="h-10 rounded-lg bg-blue-500 px-5 pb-1"
-				on:click={() => {
-					muted = !muted;
-				}}
-			>
-				{muted ? 'muted' : 'unmuted'}
-			</button>
-			<Slider
-				bind:sliderLength={volumeLength}
-				bind:sliderPos={volumePos}
-				primaryColor="bg-zinc-600"
-				secondaryColor="bg-zinc-400"
-				knobColor="bg-white"
-			/>
-		</div>
-	</div>
 </div>
 
 <style>
-	.animate-slideUp {
-		animation: slideUp 500ms ease forwards;
+	/* Firefox range input */
+	input[type='range']::-moz-range-thumb {
+		@apply h-4 w-4 rounded-full bg-white;
 	}
-	@keyframes slideUp {
-		0% {
-			opacity: 0;
-			transform: translateY(100%);
-		}
-		100% {
-			opacity: 1;
-			transform: translateY(0%);
-		}
+	input[type='range']::-moz-range-track {
+		@apply h-2 rounded-full bg-zinc-600;
+	}
+	input[type='range']::-moz-range-progress {
+		@apply h-2 rounded-full bg-zinc-400;
 	}
 
-	.animate-slideDown {
-		animation: slideDown 500ms ease forwards;
+	/* Chrome range input */
+	/* input[type='range']::-webkit-slider-thumb {
+		@apply h-4 w-4 rounded-full bg-white;
 	}
-	@keyframes slideDown {
-		0% {
-			opacity: 1;
-			transform: translateY(0%);
-		}
-		100% {
-			opacity: 0;
-			transform: translateY(100%);
-		}
-	}
+	input[type='range']::-webkit-slider-runnable-track {
+		@apply h-2 rounded-full bg-zinc-600;
+	} */
 </style>

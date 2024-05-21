@@ -1,26 +1,45 @@
 <script lang="ts">
-	export let sliderLength = 320;
-	export let sliderPos = 0;
+	export let width: number;
+	export let value = 1;
+	export let adjusting = false;
+	export let primaryColor = 'bg-zinc-600';
+	export let secondaryColor = 'bg-zinc-400';
+	export let knobColor = 'bg-white';
+
+	let sliderPos = width * value;
 	let sliderElement: HTMLElement;
 
-	export let adjusting = false;
+	$: value = 1 * (sliderPos / width);
+</script>
 
-	export let primaryColor: string;
-	export let secondaryColor: string;
-	export let knobColor: string;
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div
+	class="relative h-2 w-[--width] rounded-full {primaryColor}"
+	style="--width: {width}px;"
+	bind:this={sliderElement}
+	on:mousedown={(event) => {
+		let mouseX = event.clientX;
+		let sliderLeft = sliderElement.getBoundingClientRect().left;
 
-	const onMouseDown = (e: MouseEvent) => {
 		adjusting = true;
-	};
-	const onMouseUp = (e: MouseEvent) => {
-		adjusting = false;
-	};
-	const onMouseMove = (e: MouseEvent) => {
+		sliderPos = mouseX - sliderLeft;
+	}}
+	on:dragstart|preventDefault
+>
+	<div class="h-2 w-[--width] rounded-full {secondaryColor}" style="--width: {sliderPos}px;" />
+	<div
+		class="absolute -left-2 -top-1 h-4 w-4 translate-x-[--position] rounded-full {knobColor}"
+		style="--position: {sliderPos}px;"
+	/>
+</div>
+
+<svelte:window
+	on:mousemove={(event) => {
 		if (adjusting === false) {
 			return;
 		}
 
-		let mouseX = e.clientX;
+		let mouseX = event.clientX;
 		let sliderLeft = sliderElement.getBoundingClientRect().left;
 		let sliderRight = sliderElement.getBoundingClientRect().right;
 
@@ -33,55 +52,15 @@
 			return;
 		}
 		if (mouseX > sliderRight) {
-			sliderPos = sliderLength;
+			sliderPos = width;
 			return;
 		}
 		sliderPos = mouseX - sliderLeft;
-	};
-	const onMouseClick = (e: MouseEvent) => {
-		let mouseX = e.clientX;
-		let sliderLeft = sliderElement.getBoundingClientRect().left;
-
-		sliderPos = mouseX - sliderLeft;
-	};
-</script>
-
-<div
-	class="relative z-0 h-2 rounded-full {primaryColor}"
-	style="width: {sliderLength}px;"
-	bind:this={sliderElement}
-	on:mousedown={(e) => {
-		onMouseClick(e);
-		onMouseDown(e);
 	}}
-	on:dragstart|preventDefault
->
-	<div
-		class="absolute left-0 top-0 z-10 h-2 rounded-full {secondaryColor}"
-		style="width: {sliderPos}px;"
-		on:dragstart|preventDefault
-	/>
-	<div
-		class="move-slider absolute -left-2 -top-1 z-20 h-4 w-4 rounded-full {knobColor}"
-		style="--position: {sliderPos}px;"
-		on:mousedown={(e) => {
-			onMouseDown(e);
-		}}
-	/>
-</div>
-<!-- <input class="h-10 px-5" type="number" bind:value={sliderPos} /> -->
-
-<svelte:window
-	on:mousemove={(e) => {
-		onMouseMove(e);
-	}}
-	on:mouseup={(e) => {
-		onMouseUp(e);
+	on:mouseup={() => {
+		adjusting = false;
 	}}
 />
 
 <style>
-	.move-slider {
-		transform: translateX(var(--position));
-	}
 </style>
