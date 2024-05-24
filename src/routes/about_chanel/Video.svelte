@@ -63,7 +63,7 @@
 	};
 </script>
 
-<div class="h-[1353px] w-full bg-zinc-800 text-white">
+<div class="h-[1353px] w-full overflow-x-hidden bg-zinc-800 text-white">
 	<h2 class="py-[72px] text-center text-[40px] font-[600] leading-[45px]">當 COCO 邂逅香奈兒</h2>
 
 	<div class="relative mx-auto h-[720px] w-[1280px]">
@@ -94,7 +94,7 @@
 				}
 			}}
 		>
-			{`Left`}
+			Left
 		</button>
 		<p>{`${page + 1} / ${maxPage + 1}`}</p>
 		<button
@@ -108,7 +108,7 @@
 				}
 			}}
 		>
-			{`Right`}
+			Right
 		</button>
 	</div>
 </div>
@@ -131,11 +131,5 @@
 	}
 	.hidden-slide {
 		display: none;
-	}
-
-	.slide-transition {
-		transition-property: left;
-		transition-timing-function: ease;
-		transition-duration: 1000ms;
 	}
 </style>

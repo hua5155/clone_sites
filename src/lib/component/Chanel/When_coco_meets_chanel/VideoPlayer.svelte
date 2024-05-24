@@ -4,28 +4,18 @@
 	export let slide: string;
 	export let selected = false;
 	let video = `Chanel/Video/${slide}/main.mp4`;
-	let preview = `Chanel/Video/${slide}/preview.mp4`;
+	let preview = `Chanel/Video/${slide}/preview.gif`;
+	let screenshot = `Chanel/Video/${slide}/screenshot.jpg`;
 
 	let duration: number;
 	let currentTime = 0;
 	let paused = true;
+	let seeked = true;
 	let volume = 1;
 	let muted = false;
-	let playState = false;
 
-	let previewFlag = true;
-	let preveiwCurrentTime = 0;
-	let previewAutoPlay = false;
-	let previewPaused = true;
 	$: if (selected === false) {
-		preveiwCurrentTime = 0;
-		previewPaused = true;
-		previewFlag = true;
-	} else {
-		setTimeout(() => {
-			previewAutoPlay = true;
-			previewPaused = false;
-		}, 1000);
+		paused = true;
 	}
 
 	let timelinePos = 0;
@@ -35,16 +25,51 @@
 </script>
 
 <div class="group relative h-fit w-fit overflow-hidden">
+	<!-- svelte-ignore a11y-media-has-caption -->
 	<video
 		class="h-[720px] max-w-fit"
 		src={video}
+		poster={preview}
 		bind:currentTime
 		bind:duration
 		bind:paused
 		bind:volume
 		bind:muted
+		on:click={() => {
+			if (!selected) return;
+
+			paused = !paused;
+		}}
+		on:seeked={() => {
+			paused = seeked;
+		}}
+		on:keydown={(event) => {
+			// console.log(event.key);
+			if (event.key === ' ') {
+				event.preventDefault();
+
+				paused = !paused;
+			}
+			if (event.key === 'ArrowRight') {
+				event.preventDefault();
+
+				seeked = paused;
+				paused = true;
+				queueMicrotask(() => {
+					currentTime += 5;
+				});
+			}
+			if (event.key === 'ArrowLeft') {
+				event.preventDefault();
+
+				seeked = paused;
+				paused = true;
+				queueMicrotask(() => {
+					currentTime -= 5;
+				});
+			}
+		}}
 	>
-		<track kind="captions" />
 	</video>
 
 	<div class="absolute bottom-5 left-1/2 -translate-x-1/2">
@@ -55,7 +80,6 @@
 				class="h-10 rounded-lg bg-blue-500 px-5 pb-1"
 				on:click={() => {
 					paused = !paused;
-					playState = !paused;
 				}}
 			>
 				{paused ? 'paused' : 'playing'}
@@ -69,11 +93,8 @@
 				min="0"
 				max="1"
 				step="0.01"
-				on:mouseup={() => {
-					paused = false;
-				}}
 				on:input={() => {
-					paused = true;
+					seeked = paused;
 					currentTime = duration * timelinePos;
 				}}
 			/>
@@ -89,9 +110,9 @@
 		</div>
 	</div>
 
-	{#if previewFlag === true}
+	<!-- {#if previewFlag === true}
 		<video
-			class="absolute left-0 top-0 h-[720px] max-w-fit"
+			class="absolute left-0 top-0 z-20 h-[720px] max-w-fit"
 			src={preview}
 			bind:currentTime={preveiwCurrentTime}
 			bind:paused={previewPaused}
@@ -104,7 +125,9 @@
 		>
 			<track kind="captions" />
 		</video>
-	{/if}
+	{/if} -->
+
+	<!-- <img class="absolute left-0 top-0 w-full" class:hidden={selected} src={screenshot} alt="" /> -->
 </div>
 
 <style>

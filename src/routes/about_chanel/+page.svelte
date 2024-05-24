@@ -1,37 +1,11 @@
 <script lang="ts">
-	import Logo from './Logo.svelte';
 	import Signature from './Signature.svelte';
 	import Slide from './Slide.svelte';
 	import Art from './Art.svelte';
 	import Video from './Video.svelte';
 </script>
 
-<main class=" h-screen w-screen">
-	<div class="sticky top-0 flex h-fit w-full flex-col items-center bg-white">
-		<Logo />
-	</div>
-	<div class="flex h-[54px] w-full flex-row justify-center pt-3 text-[0.75rem] font-[600]">
-		<div class="flex flex-row justify-center space-x-5">
-			<span>高級訂製服</span>
-			<span>服飾名品</span>
-			<span>頂級珠寶</span>
-			<span>腕錶</span>
-			<span>眼鏡</span>
-			<span>香氛</span>
-			<span>彩妝</span>
-			<span>保養</span>
-		</div>
-		<div class="ml-16">
-			<span>關於</span>
-		</div>
-	</div>
-	<div
-		class="sticky top-[78px] flex h-[45px] w-full flex-row justify-center space-x-10 border-b-2 border-t-2 border-gray-100 bg-white pt-2 text-[12px] font-[600]"
-	>
-		<a href="/the_founder">品牌創始人</a>
-		<a href="/the_history">歷史</a>
-		<a href="/the_stories">傳奇故事</a>
-	</div>
+<main class="min-h-screen w-full">
 	<h1 class="w-full text-center text-[50px] font-[600]">品牌創始人</h1>
 	<div class="flex h-[2574px] w-full justify-center">
 		<Signature />
