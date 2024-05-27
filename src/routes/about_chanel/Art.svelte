@@ -1,5 +1,5 @@
 <script lang="ts">
-	let images = [
+	const IMAGES = [
 		'Chanel/Art/Horst_P._Horst_1937.webp',
 		'Chanel/Art/marie_laurencin_1923.webp',
 		'Chanel/Art/jean_cocteau_1937.webp',
@@ -11,84 +11,88 @@
 		'Chanel/Art/christian_berard_1930.webp',
 		'Chanel/Art/george_hoyningen-huene_1939.webp',
 		'Chanel/Art/kees_van_dongen_1940.webp'
-	];
+	] as const;
 
-	let page = 0;
-	const maxPage = 10;
-	let collapse = false;
+	let currPage = 0;
+	const MAX_PAGE = 10 as const;
+	let collapse = true;
 
-	const leftCheck = (index: number, page: number) => {
-		if (page === 0) {
-			return index === maxPage ? true : false;
+	function isLeft(index: number, currPage: number) {
+		if (currPage === 0) {
+			if (index === MAX_PAGE) return true;
+			return false;
 		}
-		return index === page - 1 ? true : false;
-	};
-	const rightCheck = (index: number, page: number) => {
-		if (page === maxPage) {
-			return index === 0 ? true : false;
+		if (index === currPage - 1) return true;
+		return false;
+	}
+	function isRight(index: number, currPage: number) {
+		if (currPage === MAX_PAGE) {
+			if (index === 0) return true;
+			return false;
 		}
-		return index === page + 1 ? true : false;
-	};
-	const hiddenCheck = (index: number, page: number) => {
-		if (index != page && !leftCheck(index, page) && !rightCheck(index, page)) {
+		if (index === currPage + 1) return true;
+		return false;
+	}
+	function isHidden(index: number, currPage: number) {
+		if (index !== currPage && !isLeft(index, currPage) && !isRight(index, currPage)) {
 			return true;
 		}
 		return false;
-	};
-	const handleClick = (index: number) => {
-		if (index === 0) {
-			collapse = false;
-		}
-
-		if (collapse === true) {
-			return;
-		}
-
-		if (leftCheck(index, page)) {
-			page = page === 0 ? maxPage : page - 1;
-		}
-		if (rightCheck(index, page)) {
-			page = page === maxPage ? 0 : page + 1;
-		}
-	};
+	}
 </script>
 
-<div class="h-[1323px] w-full bg-white text-black">
+<div class="flex h-[1323px] w-full flex-col items-center bg-white text-black">
 	<h2 class="py-[72px] text-center text-[40px] font-[600] leading-[45px]">
 		藝術家眼中的 COCO 香奈兒
 	</h2>
 
 	<!-- Arts container -->
-	<div class="relative mx-auto h-[819px] w-[1599px]">
+	<div class="relative h-[819px] w-[1599px]">
 		<!-- Individual arts -->
-		{#each images as image, index}
-			<div
-				class="absolute flex h-[819px] w-[533px] items-center justify-center transition-all duration-1000"
-				class:left-image={leftCheck(index, page) && !collapse}
-				class:middle-image={index === page}
-				class:right-image={rightCheck(index, page) && !collapse}
-				class:hidden-image={hiddenCheck(index, page)}
-				class:left-collapse={leftCheck(index, page) && collapse}
-				class:right-collapse={rightCheck(index, page) && collapse}
+		{#each IMAGES as image, index}
+			<button
+				class="absolute left-1/3 z-20 flex h-full w-1/3 scale-100 transform-gpu items-center justify-center opacity-100 transition-all duration-1000"
+				class:left-expand={isLeft(index, currPage) && !collapse}
+				class:right-expand={isRight(index, currPage) && !collapse}
+				class:left-collapse={isLeft(index, currPage) && collapse}
+				class:right-collapse={isRight(index, currPage) && collapse}
+				class:hidden-image={isHidden(index, currPage)}
 				on:click={() => {
-					handleClick(index);
+					if (collapse === true) {
+						collapse = false;
+						return;
+					}
+
+					if (isLeft(index, currPage)) {
+						if (currPage === 0) {
+							currPage = MAX_PAGE;
+							return;
+						}
+						currPage -= 1;
+					}
+
+					if (isRight(index, currPage)) {
+						if (currPage === MAX_PAGE) {
+							currPage = 0;
+							return;
+						}
+						currPage += 1;
+					}
 				}}
-				on:keydown
 			>
 				<img
-					class="max-h-[819px] max-w-[533px] transition-all duration-1000"
-					class:selected={index === page}
-					class:not-selected={index != page}
+					class="max-h-[819px] max-w-[533px] scale-100 transform-gpu transition-all duration-1000"
+					class:scale-[0.8]={index !== currPage}
 					src={image}
 					alt=""
 				/>
-			</div>
+			</button>
 		{/each}
 	</div>
 
-	<div class="mx-auto h-fit w-fit">
-		<select class="h-10 px-5" bind:value={page}>
-			{#each images as image, index}
+	<div class=" h-fit w-fit">
+		<select class="h-10 px-5" bind:value={currPage}>
+			{#each IMAGES as image, index}
 				<option value={index}>{index}</option>
 			{/each}
 		</select>
@@ -102,48 +106,27 @@
 			class="h-10 rounded-lg bg-blue-500 px-5 pb-1"
 			on:click={() => {
 				collapse = true;
-				page = 0;
+				currPage = 0;
 			}}>collapse</button
 		>
 	</div>
 </div>
 
 <style>
-	/* div position */
-	.left-image {
-		left: 0px;
-		z-index: 10;
+	/* img position */
+	.left-expand {
+		@apply left-0 z-10;
 	}
-	.right-image {
-		left: 1066px;
-		z-index: 10;
-	}
-	.middle-image {
-		left: 533px;
-		z-index: 20;
+	.right-expand {
+		@apply left-2/3 z-10;
 	}
 	.hidden-image {
-		left: 533px;
-		z-index: 0;
-		scale: 0;
-		opacity: 0;
+		@apply left-1/3 z-0 scale-0 opacity-0;
 	}
 	.left-collapse {
-		left: 240px;
-		z-index: 10;
+		@apply left-[240px] z-10;
 	}
 	.right-collapse {
-		left: 826px;
-		z-index: 10;
-	}
-
-	/* img scaling */
-	.selected {
-		/* max-width: 533px; */
-		scale: 1;
-	}
-	.not-selected {
-		/* max-width: 426px; */
-		scale: 0.8;
+		@apply left-[826px] z-10;
 	}
 </style>
