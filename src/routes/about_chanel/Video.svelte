@@ -1,111 +1,146 @@
 <script lang="ts">
 	import VideoPlayer from '$lib/component/Chanel/When_coco_meets_chanel/VideoPlayer.svelte';
+	import { onMount } from 'svelte';
 
-	let slides = ['coco', 'mademoiselle', 'gabrielle_chanel', 'coco_by_karl'];
-
-	let page = 0;
-	const maxPage = 3;
-	let direction = 'right';
-
-	const leftCheck = (index: number, page: number) => {
-		if (page === 0) {
-			return index === maxPage ? true : false;
+	function isLeft(index: number, currPage: number) {
+		if (currPage === 0) {
+			if (index === MAX_INDEX) return true;
+			return false;
 		}
-		return index === page - 1 ? true : false;
-	};
-	const rightCheck = (index: number, page: number) => {
-		if (page === maxPage) {
-			return index === 0 ? true : false;
-		}
-		return index === page + 1 ? true : false;
-	};
-	const outerCheck = (index: number, page: number) => {
-		let outer = page;
-		if (direction === 'left') {
-			outer += 2;
-			if (outer > maxPage) {
-				outer -= maxPage + 1;
-			}
-			if (index === outer) {
-				return true;
-			}
-		} else if (direction === 'right') {
-			if (outer < 2) {
-				outer += maxPage + 1;
-			}
-			outer -= 2;
-			if (index === outer) {
-				return true;
-			}
-		}
-
+		if (index === currPage - 1) return true;
 		return false;
-
-		/*
-    page -> index
-    0 -> 3, 2
-    1 -> 4, 3
-    2 -> 0, 4
-    3 -> 1, 0
-    4 -> 2, 1
-    */
-	};
-	const hiddenCheck = (index: number, page: number) => {
-		if (
-			index != page &&
-			!leftCheck(index, page) &&
-			!rightCheck(index, page) &&
-			!outerCheck(index, page)
-		) {
-			return true;
+	}
+	function isRight(index: number, currPage: number) {
+		if (currPage === MAX_INDEX) {
+			if (index === 0) return true;
+			return false;
 		}
+		if (index === currPage + 1) return true;
 		return false;
-	};
+	}
+	function getOuterRight(currPage: number) {
+		let outer = currPage;
+		outer += 2;
+		if (outer > MAX_INDEX) {
+			outer -= MAX_INDEX + 1;
+		}
+		return outer;
+	}
+	function getOuterLeft(currPage: number) {
+		let outer = currPage;
+		if (outer < 2) {
+			outer += MAX_INDEX + 1;
+		}
+		outer -= 2;
+
+		return outer;
+	}
+
+	const SLIDES = ['coco', 'mademoiselle', 'gabrielle_chanel', 'coco_by_karl'] as const;
+	// const SLIDES = [1, 2, 3, 4, 5];
+	let currPage = 0;
+	const MAX_INDEX = 3 as const;
+
+	let pause = true;
+
+	onMount(() => {
+		SLIDES.forEach((value, index) => {
+			if (index === currPage) {
+				document.getElementById(`video-${index}`)?.style.setProperty('--position', '0%');
+				return;
+			}
+			if (index === MAX_INDEX) {
+				document.getElementById(`video-${index}`)?.style.setProperty('--position', '-125%');
+				return;
+			}
+			if (index === currPage + 1) {
+				document.getElementById(`video-${index}`)?.style.setProperty('--position', '125%');
+				return;
+			}
+			document.getElementById(`video-${index}`)?.style.setProperty('--position', '250%');
+		});
+	});
 </script>
 
-<div class="h-[1353px] w-full overflow-x-hidden bg-zinc-800 text-white">
+<div class="flex h-[1353px] w-full flex-col items-center overflow-x-hidden bg-zinc-800 text-white">
 	<h2 class="py-[72px] text-center text-[40px] font-[600] leading-[45px]">當 COCO 邂逅香奈兒</h2>
 
-	<div class="relative mx-auto h-[720px] w-[1280px]">
-		{#each slides as slide, index}
+	<div class="relative h-[720px] w-[1280px]">
+		{#each SLIDES as slide, index}
 			<div
-				class="absolute top-0"
-				class:left-outer-slide={outerCheck(index, page) && direction === 'left'}
-				class:left-slide={leftCheck(index, page)}
-				class:middle-slide={index === page}
-				class:right-slide={rightCheck(index, page)}
-				class:right-outer-slide={outerCheck(index, page) && direction === 'right'}
-				class:hidden-slide={hiddenCheck(index, page)}
+				class="absolute top-0 translate-x-[--position] transform-gpu duration-1000 ease-in-out"
+				class:transition-none={true}
+				id={`video-${index}`}
 			>
-				<VideoPlayer {slide} selected={index === page} />
+				<VideoPlayer {slide} selected={index === currPage} />
+				<!-- MARK: prototype div works but VideoPlayer doesn't... -->
+				<!-- <div
+					class="flex aspect-video w-[200px] items-center justify-center bg-gray-500/50 text-9xl text-white"
+				>
+					<p class="w-full text-center">{index + 1}</p>
+				</div> -->
 			</div>
 		{/each}
 	</div>
 
-	<div class="mx-auto mt-10 flex h-fit w-fit flex-row space-x-5">
+	<div class="flex h-fit w-fit flex-row items-center space-x-5 pt-10">
 		<button
 			class="h-10 rounded-lg bg-blue-500 px-5 pb-1"
 			on:click={() => {
-				direction = 'left';
-				if (page === 0) {
-					page = maxPage;
-				} else {
-					page -= 1;
-				}
+				let outerLeft = getOuterLeft(currPage);
+				pause = true;
+				document.getElementById(`video-${outerLeft}`)?.style.setProperty('--position', '-250%');
+				setTimeout(() => {
+					pause = false;
+					document.getElementById(`video-${outerLeft}`)?.style.setProperty('--position', '-125%');
+					SLIDES.forEach((value, index) => {
+						if (index === currPage) {
+							document.getElementById(`video-${index}`)?.style.setProperty('--position', '125%');
+						}
+						if (isLeft(index, currPage)) {
+							document.getElementById(`video-${index}`)?.style.setProperty('--position', '0%');
+						}
+						if (isRight(index, currPage)) {
+							document.getElementById(`video-${index}`)?.style.setProperty('--position', '250%');
+						}
+					});
+					if (currPage === 0) {
+						currPage = MAX_INDEX;
+					} else {
+						currPage -= 1;
+					}
+				}, 1);
 			}}
 		>
 			Left
 		</button>
-		<p>{`${page + 1} / ${maxPage + 1}`}</p>
+		<p>{`${currPage + 1} / ${MAX_INDEX + 1}`}</p>
 		<button
 			class="h-10 rounded-lg bg-blue-500 px-5 pb-1"
 			on:click={() => {
-				direction = 'right';
-				if (page === maxPage) {
-					page = 0;
-				} else {
-					page += 1;
-				}
+				let outerRight = getOuterRight(currPage);
+				pause = true;
+				document.getElementById(`video-${outerRight}`)?.style.setProperty('--position', '250%');
+				setTimeout(() => {
+					pause = false;
+					document.getElementById(`video-${outerRight}`)?.style.setProperty('--position', '125%');
+					SLIDES.forEach((value, index) => {
+						if (index === currPage) {
+							document.getElementById(`video-${index}`)?.style.setProperty('--position', '-125%');
+						}
+						if (isLeft(index, currPage)) {
+							document.getElementById(`video-${index}`)?.style.setProperty('--position', '-250%');
+						}
+						if (isRight(index, currPage)) {
+							document.getElementById(`video-${index}`)?.style.setProperty('--position', '0%');
+						}
+					});
+					if (currPage === MAX_INDEX) {
+						currPage = 0;
+					} else {
+						currPage += 1;
+					}
+				}, 1);
 			}}
 		>
 			Right
@@ -114,22 +149,4 @@
 </div>
 
 <style>
-	.left-outer-slide {
-		transform: translateX(-250%);
-	}
-	.left-slide {
-		transform: translateX(-125%);
-	}
-	.middle-slide {
-		transform: translateX(0%);
-	}
-	.right-slide {
-		transform: translateX(125%);
-	}
-	.right-outer-slide {
-		transform: translateX(250%);
-	}
-	.hidden-slide {
-		display: none;
-	}
 </style>
