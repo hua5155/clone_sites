@@ -74,7 +74,7 @@
 />
 
 <main class="h-screen min-w-full overflow-x-hidden">
-	<!-- <img class="w-full" src="social_coffee_house/fv_pc.png" alt="" /> -->
+	<!-- <img class="w-full" src="/social_coffee_house/fv_pc.png" alt="" /> -->
 	<!-- <div class="pt-10"></div>
 	<div class="mx-auto h-fit w-fit">
 		<p>{`modalFlag : ${modalFlag}`}</p>
@@ -85,7 +85,8 @@
 	</div> -->
 
 	<!-- js implementation -->
-	<div class="pt-24"></div>
+	<div class="pt-10"></div>
+	<p class="w-full text-center text-3xl">JS + CSS translate</p>
 	<div
 		class="flex h-[500px] w-screen items-center justify-center overflow-hidden border-y-2 border-[#003e59] bg-[#00a1c0]"
 	>
@@ -102,7 +103,7 @@
 					}
 				}}
 			>
-				<img class="w-[18px]" src="social_coffee_house/arrow_left.png" alt="left arrow" />
+				<img class="w-[18px]" src="/social_coffee_house/arrow_left.png" alt="left arrow" />
 			</button>
 			<button
 				class="absolute right-0 top-1/2"
@@ -113,7 +114,7 @@
 					}
 				}}
 			>
-				<img class="w-[18px]" src="social_coffee_house/arrow_right.png" alt="right arrow" />
+				<img class="w-[18px]" src="/social_coffee_house/arrow_right.png" alt="right arrow" />
 			</button>
 			<ul
 				class="flex h-fit w-[500px] translate-x-[--position] flex-row gap-24"
@@ -146,7 +147,8 @@
 	</div>
 
 	<!-- Tailwind scroll snap -->
-	<!-- <div class="pt-10"></div>
+	<div class="pt-10"></div>
+	<p class="w-full text-center text-3xl">Horizontal scroll + CSS scroll-snap</p>
 	<div
 		class="relative flex h-[500px] w-screen scroll-pl-5 items-center justify-center gap-24 overflow-hidden border-y-2 border-[#003e59] bg-[#00a1c0]"
 	>
@@ -158,7 +160,7 @@
 					console.log(test.scrollLeft);
 				}}
 			>
-				<img class="w-[18px]" src="social_coffee_house/arrow_left.png" alt="left arrow" />
+				<img class="w-[18px]" src="/social_coffee_house/arrow_left.png" alt="left arrow" />
 			</button>
 			<button
 				class="absolute right-0 top-1/2 z-10"
@@ -167,7 +169,7 @@
 					console.log(test.scrollLeft);
 				}}
 			>
-				<img class="w-[18px]" src="social_coffee_house/arrow_right.png" alt="right arrow" />
+				<img class="w-[18px]" src="/social_coffee_house/arrow_right.png" alt="right arrow" />
 			</button>
 		</div>
 		<div
@@ -187,7 +189,7 @@
 				<div class="w-[50vw]"></div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	{#if modalFlag === true}
 		{@const { id, date, heading, name } = selected}
@@ -225,11 +227,11 @@
 		class="fixed bottom-10 left-10 drop-shadow-[-3px_3px_0px_#003e59] transition-transform duration-500 hover:scale-110"
 		href="https://socialcoffeehouse.arca.tokyo/"
 	>
-		<img class="h-[160px] w-[160px]" src="social_coffee_house/circle_center.png" alt="" />
+		<img class="h-[160px] w-[160px]" src="/social_coffee_house/circle_center.png" alt="" />
 		<div
 			class="absolute left-0 top-0 flex h-full w-full animate-[spin_11s_linear_infinite] items-center justify-center"
 		>
-			<img class="h-[135px] w-[135px]" src="social_coffee_house/circle_txt.png" alt="" />
+			<img class="h-[135px] w-[135px]" src="/social_coffee_house/circle_txt.png" alt="" />
 		</div>
 	</a>
 </main>

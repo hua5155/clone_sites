@@ -78,7 +78,7 @@
 			/>
 		</g>
 	</svg>
-	<img class="w-[67.5%]" src="botanist/svg/copy-ja.svg" alt="" />
+	<img class="w-[67.5%]" src="/botanist/svg/copy-ja.svg" alt="" />
 </h1>
 
 <style>

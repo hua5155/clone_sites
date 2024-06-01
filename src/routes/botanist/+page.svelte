@@ -26,7 +26,7 @@
 				style="transform-origin: center;"
 			></div>
 			<div
-				class="animate-rotate-up h-full w-full bg-[url('botanist/img/kv_sp.jpg')] bg-cover bg-center md:bg-[url('botanist/img/kv.jpg')]"
+				class="animate-rotate-up h-full w-full bg-[url('/botanist/img/kv_sp.jpg')] bg-cover bg-center md:bg-[url('/botanist/img/kv.jpg')]"
 				style:--opacity-end="1"
 				style:--rotate-start="30deg"
 				style:--rotate-end="0deg"
@@ -35,7 +35,7 @@
 			<div
 				class="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-between px-[max(28px,_7.46667%)] py-[max(40px,_10.66667%)] md:items-start md:p-[60px]"
 			>
-				<img class="w-[70px] md:w-fit" src="botanist/svg/logo-w.svg" alt="" />
+				<img class="w-[70px] md:w-fit" src="/botanist/svg/logo-w.svg" alt="" />
 				<Bloom />
 			</div>
 		</div>
@@ -67,13 +67,13 @@
 	<!-- Mobile nav bar -->
 	{#if navFlag === true}
 		<div
-			class="absolute left-0 top-0 h-full w-full bg-[url('botanist/img/bg.jpg')] bg-cover bg-right-top px-[13%] py-[70px] md:hidden"
+			class="absolute left-0 top-0 h-full w-full bg-[url('/botanist/img/bg.jpg')] bg-cover bg-right-top px-[13%] py-[70px] md:hidden"
 			in:fly={{ duration: 800, y: '100%', easing: expoOut }}
 			out:fly={{ duration: 500, y: '100%', easing: expoIn }}
 		>
 			<div>
 				<div class="flex h-fit w-full justify-center">
-					<img src="botanist/svg/logo-bk.svg" alt="" />
+					<img src="/botanist/svg/logo-bk.svg" alt="" />
 				</div>
 				<div class="pt-16"></div>
 				<ul
