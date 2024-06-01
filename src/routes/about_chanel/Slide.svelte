@@ -42,41 +42,37 @@
 </script>
 
 <div
-	class="relative w-full bg-zinc-800 py-10 text-white transition-all duration-1000"
+	class="relative flex w-full flex-col items-center bg-zinc-800 py-10 text-white transition-all duration-1000"
 	style:height="{slideHeight + 308}px"
 >
 	<h2 class="text-center text-[40px] font-[600]">關於 COCO 香奈兒</h2>
 
-	<div class="mx-auto mt-20 flex w-[1600px] flex-row justify-between space-x-1">
+	<div class="mt-20 flex h-fit w-[1600px] flex-row justify-between space-x-1">
 		<!-- Left button -->
-		<div class="w-[240px] bg-sky-500/50">
-			<button
-				class="mx-auto mt-[350px] w-full text-center"
-				on:click={() => {
-					$direction = 'Left';
-					handlePage();
-				}}
-			>
-				Left
-			</button>
-		</div>
+		<button
+			class="h-full w-[240px] text-center"
+			on:click={() => {
+				$direction = 'Left';
+				handlePage();
+			}}
+		>
+			{'<'}
+		</button>
 
 		<div class="h-fit w-full" bind:clientHeight={slideHeight}>
 			<Slide />
 		</div>
 
 		<!-- Right button -->
-		<div class="w-[240px] bg-sky-500/50">
-			<button
-				class="mx-auto mt-[350px] w-full text-center"
-				on:click={() => {
-					$direction = 'Right';
-					handlePage();
-				}}
-			>
-				Right
-			</button>
-		</div>
+		<button
+			class="h-full w-[240px] text-center"
+			on:click={() => {
+				$direction = 'Right';
+				handlePage();
+			}}
+		>
+			{'>'}
+		</button>
 	</div>
 
 	<div class="absolute bottom-10 mt-16 w-full">
