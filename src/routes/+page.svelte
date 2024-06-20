@@ -1,11 +1,11 @@
 <script lang="ts">
 	let urls = [
 		{
-			href: '/about_chanel',
+			href: '/about-chanel',
 			text: 'About CHANEL'
 		},
 		{
-			href: '/social_coffee_house',
+			href: '/social-coffee-house',
 			text: 'Social Coffee House'
 		},
 		{
@@ -13,7 +13,7 @@
 			text: 'BOTANIST (RWD)'
 		},
 		{
-			href: '/pulsar_x2_mini',
+			href: '/pulsar-x2-mini',
 			text: 'Pulsar X2 mini'
 		}
 	];
