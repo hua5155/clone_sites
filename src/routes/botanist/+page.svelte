@@ -8,7 +8,7 @@
 	let navFlag = false;
 </script>
 
-<main class="absolute left-0 top-0 h-screen w-screen overflow-hidden">
+<div class="absolute left-0 top-0 h-dvh w-dvw overflow-hidden">
 	<div class="h-full w-full px-[12px] pb-[60px] pt-[30px] md:px-[110px] md:py-[80px]">
 		<div class="relative h-full w-full">
 			<div
@@ -93,7 +93,7 @@
 		}}
 	>
 	</button>
-</main>
+</div>
 
 <style>
 	.animate-rotate-up {
@@ -104,14 +104,14 @@
 	}
 	@keyframes rotateUp {
 		0% {
-			transform: translateY(100%) rotate(var(--rotate-start));
+			transform: translate3d(0, 100%, 0) rotate(var(--rotate-start));
 			opacity: 0;
 		}
 		30% {
 			opacity: 0;
 		}
 		100% {
-			transform: translateY(0%) rotate(var(--rotate-end));
+			transform: translate3d(0, 0%, 0) rotate(var(--rotate-end));
 			opacity: var(--opacity-end);
 		}
 	}
