@@ -5,7 +5,9 @@
 	export let name: string;
 </script>
 
-<div class="w-[500px] border-2 border-[#003e59] bg-white p-3 drop-shadow-[-3px_3px_0px_#003e59]">
+<div
+	class="w-[300px] border-2 border-[#003e59] bg-white p-3 drop-shadow-[-3px_3px_0px_#003e59] xl:w-[500px]"
+>
 	<div
 		class="flex h-12 flex-row items-center justify-between border-2 border-[#003e59] font-sans text-[20px] font-[400] leading-[1.6rem] text-[#003e59]"
 	>
